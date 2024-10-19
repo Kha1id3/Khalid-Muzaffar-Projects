@@ -1,0 +1,158 @@
+import paho.mqtt.client as mqtt
+import RPi.GPIO as GPIO
+import time
+import SSD1331  
+from PIL import Image, ImageDraw, ImageFont
+import board
+import neopixel
+
+#MQTT CONFIGURATION
+BROKER_HOST="io.adafruit.com"                   # variable for mqtt broker address
+PORT=1883 
+ASKED_FLOOR_TOPIC = "serdel/feeds/" 
+CURRENT_FLOOR_TOPIC = "serdel/feeds/current_floor"           # mqtt broker port                          
+                                                # topic to publish 
+ADAFRUIT_USER="serdel"
+ADAFRUIT_KEY="--"
+
+# Define the pins for the red and green LEDs
+RED_LED_PIN = 23
+GREEN_LED_PIN = 24
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(RED_LED_PIN, GPIO.OUT)
+GPIO.setup(GREEN_LED_PIN, GPIO.OUT)
+
+# Initialize the display
+disp = SSD1331.SSD1331()
+disp.Init()
+disp.clear()
+
+
+led_strip = neopixel.NeoPixel(board.D18, 8, brightness=1.0/32, auto_write=False)
+
+# Finite State Machine (FSM) Setup
+IDLE = 0
+MOVING = 1
+state = IDLE
+
+# MQTT Connection Setup
+def on_connect(client, userdata, flags, rc):
+    if rc == 0:
+        print("Connected to Adafruit.io")
+        client.subscribe(ASKED_FLOOR_TOPIC)
+    else:
+        print("Connection failed with code ", rc)
+
+def on_message(client, userdata, msg):
+    if msg.topic == ASKED_FLOOR_TOPIC:
+        requested_floor = int(msg.payload.decode())
+        move_to_floor(requested_floor)
+
+client = mqtt.Client("Elevator_Subscriber")
+client.on_connect = on_connect
+client.on_message = on_message
+
+print("Connecting to broker ",BROKER_HOST)
+client.username_pw_set(ADAFRUIT_USER, password=ADAFRUIT_KEY)
+client.connect(BROKER_HOST, port=PORT)
+client.loop_start()
+
+
+while not client.connected_flag:                    # wait until connected to broker
+    print("Waiting for connection")
+    time.sleep(1)
+
+# Function to Update Display
+def update_display(message):
+        disp.clear()
+    
+    image = Image.new("RGB", (disp.width, disp.height), "BLACK")
+    draw = ImageDraw.Draw(image)
+
+  
+    font = ImageFont.truetype("Font.ttf", 15)  
+    text_width, text_height = draw.textsize(message, font=font)
+    x = (disp.width - text_width) // 2
+    y = (disp.height - text_height) // 2
+
+    
+    draw.text((x, y), message, font=font, fill="WHITE")
+
+   
+    disp.ShowImage(image, 0, 0)
+
+# Function to Animate Doors
+def animate_doors(opening):
+    screen_width = disp.width
+    screen_height = disp.height
+    steps = 20  
+
+    for i in range(steps + 1):
+        image = Image.new("RGB", (screen_width, screen_height), "White")
+        draw = ImageDraw.Draw(image)
+        position = (screen_width // 2) * i // steps if opening else (screen_width // 2) - ((screen_width // 2) * i // steps)
+        draw_doors(draw, position, screen_width, screen_height)
+        disp.ShowImage(image, 0, 0)
+        time.sleep(0.05)
+
+# Function to Update State
+def update_state(new_state):
+    global state
+    state = new_state
+    if state == IDLE:
+        GPIO.output(GREEN_LED_PIN, GPIO.HIGH)
+        GPIO.output(RED_LED_PIN, GPIO.LOW)
+        led_strip.fill((0, 255, 0))  # Green for idle
+    elif state == MOVING:
+        GPIO.output(GREEN_LED_PIN, GPIO.LOW)
+        GPIO.output(RED_LED_PIN, GPIO.HIGH)
+        led_strip.fill((255, 0, 0))  # Red for moving
+    led_strip.show()
+
+def update_selector(floor):
+    # Turn off all LEDs
+    led_strip.fill((0, 0, 0))
+    
+    # Check if the floor number is within the range of our LED strip
+    if 0 <= floor < NUM_LEDS:
+        # Light up the LED corresponding to the current floor
+        led_strip[floor] = (255, 255, 255)  # White color for the active floor
+    else:
+        print("Floor number out of range")
+
+    led_strip.show()
+
+
+def move_to_floor(requested_floor):
+    global current_floor
+    update_state(MOVING)
+    animate_doors(False)  
+    
+    # Determine the direction of elevator movement
+    step = 1 if requested_floor > current_floor else -1
+    
+    for floor in range(current_floor, requested_floor, step):
+        update_display("Moving to Floor: " + str(floor))
+        update_selector(floor)
+        time.sleep(1)
+        current_floor = floor
+
+    # Update once more for the requested floor as loop exits one floor early
+    update_display("Moving to Floor: " + str(requested_floor))
+    update_selector(requested_floor)
+    time.sleep(1)
+    current_floor = requested_floor
+
+    animate_doors(True)  
+    update_display("Arrived at Floor: " + str(current_floor))
+    update_state(IDLE) 
+
+
+try:
+    while True:
+        time.sleep(1)  
+except KeyboardInterrupt:
+    print("Exiting")
+    GPIO.cleanup()
+    client.loop_stop()
+    client.disconnect()
