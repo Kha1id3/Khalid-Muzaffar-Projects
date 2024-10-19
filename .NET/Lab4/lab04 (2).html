@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multiplication Table with Dynamic Canvas</title>
+  <link rel="stylesheet" href="styles (3).css">
+</head>
+
+<body>
+
+<h1>Multiplication Table</h1>
+
+
+<label for="tableSize">Table Size:</label>
+<input type="number" id="tableSize" value="5" min="5" max="20">
+<button onclick="generateTable()">Generate Table</button>
+
+<div id="multiplicationTable" class="table-container"></div>
+
+<h2>Interactive Canvas</h2>
+<canvas id="drawingCanvas" width="400" height="400"></canvas>
+
+<h2>Interactive Canvas 2</h2>
+<canvas id="drawingCanvas2" width="400" height="400"></canvas>
+
+
+<script>
+function generateTable() {
+  let tableSize = parseInt(document.getElementById('tableSize').value);
+
+  if (isNaN(tableSize) || tableSize < 5 || tableSize > 20) {
+    alert("Please enter a valid number between 5 and 20 for Table Size.");
+    return;
+  }
+
+
+  let totals = new Array(tableSize).fill(0);
+
+  let table = '<table class="multiplication-table">';
+  for (let i = 1; i <= tableSize; i++) {
+    table += '<tr>';
+    for (let j = 1; j <= tableSize; j++) {
+      let randomNumber = Math.floor(Math.random() * 100);
+      totals[j - 1] += randomNumber; // Add to the respective column total
+      table += `<td>${randomNumber}</td>`;
+    }
+    table += '</tr>';
+  }
+
+  // Add a new row for the totals
+  table += '<tr>';
+  for (let total of totals) {
+    // Only add a cell if the total is >= 200
+    if (total >= 200) {
+      table += `<td class="column-total">${total}</td>`;
+    } else {
+      table += '<td></td>'; // Add an empty cell if the total is less than 200
+    }
+  }
+  table += '</tr>';
+  table += '</table>';
+
+  document.getElementById('multiplicationTable').innerHTML = table;
+}
+
+
+const canvas = document.getElementById('drawingCanvas');
+const ctx = canvas.getContext('2d');
+
+canvas.addEventListener('mousemove', drawLines);
+canvas.addEventListener('mouseout', clearCanvas);
+
+function drawLines(e) {
+  clearCanvas();
+  const rect = canvas.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  drawLine(0, 0, x, y);
+  drawLine(canvas.width, 0, x, y);
+  drawLine(canvas.width, canvas.height, x, y);
+  drawLine(0, canvas.height, x, y);
+}
+
+function drawLine(startX, startY, endX, endY) {
+  ctx.beginPath();
+  ctx.moveTo(startX, startY);
+  ctx.lineTo(endX, endY);
+  ctx.stroke();
+}
+
+function clearCanvas() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+window.addEventListener('resize', resizeCanvas);
+function resizeCanvas() {
+  canvas.style.width = '100%';
+  canvas.style.height = 'auto';
+  canvas.width = canvas.offsetWidth;
+  canvas.height = canvas.offsetHeight;
+  clearCanvas();
+}
+
+const secondCanvas = document.getElementById('secondDrawingCanvas');
+const secondCtx = secondCanvas.getContext('2d');
+
+// Function to draw lines from the top middle
+function drawLinesFromTopMiddle(e) {
+  clearSecondCanvas();
+  const rect = secondCanvas.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  // Drawing lines from the top middle
+  drawLine(secondCanvas.width / 2, 0, x, y, getRandomColor());
+}
+
+// Function to get random color
+function getRandomColor() {
+  const letters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
+// Function to draw a line with color
+function drawLine(startX, startY, endX, endY, color) {
+  secondCtx.beginPath();
+  secondCtx.moveTo(startX, startY);
+  secondCtx.lineTo(endX, endY);
+  secondCtx.strokeStyle = color;
+  secondCtx.stroke();
+}
+
+// Function to clear the second canvas
+function clearSecondCanvas() {
+  secondCtx.clearRect(0, 0, secondCanvas.width, secondCanvas.height);
+}
+
+// Add event listeners to the second canvas
+secondCanvas.addEventListener('mousemove', drawLinesFromTopMiddle);
+secondCanvas.addEventListener('mouseout', clearSecondCanvas);
+
+// Add a hover effect to change the background color of the second canvas
+secondCanvas.addEventListener('mouseover', function() {
+  secondCanvas.style.backgroundColor = '#DFE3F8';
+});
+
+secondCanvas.addEventListener('mouseout', function() {
+  secondCanvas.style.backgroundColor = 'transparent';
+});
+
+// Call this function to adjust canvas on resize
+window.addEventListener('resize', resizeSecondCanvas);
+function resizeSecondCanvas() {
+  secondCanvas.style.width = '100%';
+  secondCanvas.style.height = 'auto';
+  secondCanvas.width = secondCanvas.offsetWidth;
+  secondCanvas.height = secondCanvas.offsetHeight;
+  clearSecondCanvas();
+}
+
+resizeSecondCanvas(); // Initial resize for the second canvas
+
+
+resizeCanvas(); // Initial resize
+</script>
+
+</body>
+</html>
