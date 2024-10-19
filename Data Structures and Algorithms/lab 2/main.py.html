@@ -1,0 +1,87 @@
+<html>
+<head>
+<title>main.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #808080;}
+.s3 { color: #6a8759;}
+.s4 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+main.py</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">sys</span>
+<span class="s0">import </span><span class="s1">pandas </span><span class="s0">as </span><span class="s1">pd</span>
+<span class="s0">import </span><span class="s1">logging</span>
+
+<span class="s2"># Set up logging</span>
+<span class="s1">logging.basicConfig(filename=</span><span class="s3">'log.txt'</span><span class="s0">, </span><span class="s1">encoding=</span><span class="s3">'utf-8'</span><span class="s0">, </span><span class="s1">level=logging.INFO)</span>
+
+
+<span class="s0">def </span><span class="s1">parse_line(line):</span>
+
+    <span class="s1">logging.debug(</span><span class="s3">f&quot;Parsing line: </span><span class="s0">{</span><span class="s1">line</span><span class="s0">}</span><span class="s3">&quot;</span><span class="s1">)</span>
+    <span class="s1">parts = line.split()</span>
+    <span class="s1">logging.debug(</span><span class="s3">f&quot;Parts: </span><span class="s0">{</span><span class="s1">parts</span><span class="s0">}</span><span class="s3">&quot;</span><span class="s1">)</span>
+    <span class="s0">if </span><span class="s1">len(parts) != </span><span class="s4">4</span><span class="s1">:</span>
+        <span class="s1">logging.warning(</span><span class="s3">f&quot;Unable to parse line: </span><span class="s0">{</span><span class="s1">line</span><span class="s0">}</span><span class="s3">&quot;</span><span class="s1">)</span>
+        <span class="s0">return None</span>
+    <span class="s0">try</span><span class="s1">:</span>
+        <span class="s1">path = parts[</span><span class="s4">0</span><span class="s1">]</span>
+        <span class="s1">http_code = int(parts[</span><span class="s4">1</span><span class="s1">])</span>
+        <span class="s1">bytes_sent = int(parts[</span><span class="s4">2</span><span class="s1">])</span>
+        <span class="s1">processing_time = int(parts[</span><span class="s4">3</span><span class="s1">])</span>
+        <span class="s1">logging.debug(</span><span class="s3">f&quot;Parsed data: </span><span class="s0">{</span><span class="s1">path</span><span class="s0">}</span><span class="s3">, </span><span class="s0">{</span><span class="s1">http_code</span><span class="s0">}</span><span class="s3">, </span><span class="s0">{</span><span class="s1">bytes_sent</span><span class="s0">}</span><span class="s3">, </span><span class="s0">{</span><span class="s1">processing_time</span><span class="s0">}</span><span class="s3">&quot;</span><span class="s1">)</span>
+        <span class="s0">return </span><span class="s1">path</span><span class="s0">, </span><span class="s1">http_code</span><span class="s0">, </span><span class="s1">bytes_sent</span><span class="s0">, </span><span class="s1">processing_time</span>
+    <span class="s0">except </span><span class="s1">ValueError </span><span class="s0">as </span><span class="s1">e:</span>
+        <span class="s1">logging.warning(</span><span class="s3">f&quot;Unable to parse line: </span><span class="s0">{</span><span class="s1">line</span><span class="s0">}</span><span class="s3">&quot;</span><span class="s1">)</span>
+        <span class="s0">return None</span>
+
+
+<span class="s0">def </span><span class="s1">main(log_file_path):</span>
+    <span class="s2"># Read log file into DataFrame</span>
+    <span class="s1">df = pd.read_csv(log_file_path</span><span class="s0">, </span><span class="s1">sep=</span><span class="s3">' '</span><span class="s0">, </span><span class="s1">header=</span><span class="s0">None, </span><span class="s1">names=[</span><span class="s3">'path'</span><span class="s0">, </span><span class="s3">'http_code'</span><span class="s0">, </span><span class="s3">'bytes_sent'</span><span class="s0">, </span><span class="s3">'processing_time'</span><span class="s1">])</span>
+
+    <span class="s2"># Filter out failed requests and print valid paths</span>
+    <span class="s1">valid_paths = df.loc[df[</span><span class="s3">'http_code'</span><span class="s1">] == </span><span class="s4">200</span><span class="s0">, </span><span class="s3">'path'</span><span class="s1">]</span>
+    <span class="s0">for </span><span class="s1">path </span><span class="s0">in </span><span class="s1">valid_paths:</span>
+        <span class="s1">print(path)</span>
+
+    <span class="s2"># Print statistics</span>
+    <span class="s1">max_processing_time_row = df.loc[df[</span><span class="s3">'processing_time'</span><span class="s1">].idxmax()]</span>
+    <span class="s1">max_processing_path = max_processing_time_row[</span><span class="s3">'path'</span><span class="s1">]</span>
+    <span class="s1">max_processing_time = max_processing_time_row[</span><span class="s3">'processing_time'</span><span class="s1">]</span>
+    <span class="s1">failed_requests = df.loc[df[</span><span class="s3">'http_code'</span><span class="s1">] != </span><span class="s4">200</span><span class="s1">].shape[</span><span class="s4">0</span><span class="s1">]</span>
+    <span class="s1">total_bytes_sent = df[</span><span class="s3">'bytes_sent'</span><span class="s1">].sum()</span>
+    <span class="s1">total_kb_sent = total_bytes_sent / </span><span class="s4">1024.0</span>
+    <span class="s1">avg_processing_time = df[</span><span class="s3">'processing_time'</span><span class="s1">].mean()</span>
+
+    <span class="s1">print(</span><span class="s3">&quot;The path and processing time of the largest resource&quot;</span><span class="s0">, </span><span class="s1">max_processing_path</span><span class="s0">, </span><span class="s3">&quot;({} ms)&quot;</span><span class="s1">.format(max_processing_time))</span>
+    <span class="s1">print(</span><span class="s3">&quot;The number of failed requests (non-existent resources)&quot;</span><span class="s0">, </span><span class="s1">failed_requests)</span>
+    <span class="s1">print(</span><span class="s3">&quot;Total number of bytes sent to a user:&quot;</span><span class="s0">, </span><span class="s1">total_bytes_sent)</span>
+    <span class="s1">print(</span><span class="s3">&quot;Total number of kilobytes sent to a user:&quot;</span><span class="s0">, </span><span class="s1">total_kb_sent)</span>
+    <span class="s1">print(</span><span class="s3">&quot;Average processing time of a request:&quot;</span><span class="s0">, </span><span class="s1">avg_processing_time</span><span class="s0">, </span><span class="s3">&quot;ms&quot;</span><span class="s1">)</span>
+
+
+<span class="s0">if </span><span class="s1">__name__ == </span><span class="s3">&quot;__main__&quot;</span><span class="s1">:</span>
+    <span class="s0">if </span><span class="s1">len(sys.argv) &lt; </span><span class="s4">2</span><span class="s1">:</span>
+        <span class="s1">print(</span><span class="s3">&quot;Please provide the path to the log file as an argument.&quot;</span><span class="s1">)</span>
+        <span class="s1">sys.exit(</span><span class="s4">1</span><span class="s1">)</span>
+    <span class="s1">log_file_path = sys.argv[</span><span class="s4">1</span><span class="s1">]</span>
+    <span class="s1">main(log_file_path)</span>
+
+
+
+<span class="s2">#Resources  Used:</span>
+<span class="s2">#https://docs.python.org/3/howto/logging.html (logging Tut)</span>
+<span class="s2">#https://docs.python.org/3/library/logging.html (documentation)</span>
+<span class="s2">#https://docs.python.org/3/howto/logging-cookbook.html(cookbook)</span>
+</pre>
+</body>
+</html>
