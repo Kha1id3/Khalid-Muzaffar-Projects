@@ -1,0 +1,32 @@
+@model Article
+
+<h2>Create New Article</h2>
+
+@using (Html.BeginForm()) 
+{
+    <div>
+        @Html.LabelFor(model => model.Name)
+        @Html.EditorFor(model => model.Name)
+        @Html.ValidationMessageFor(model => model.Name)
+    </div>
+
+    <div>
+        @Html.LabelFor(model => model.Price)
+        @Html.EditorFor(model => model.Price)
+        @Html.ValidationMessageFor(model => model.Price)
+    </div>
+
+    <div>
+        @Html.LabelFor(model => model.ExpirationDate)
+        @Html.EditorFor(model => model.ExpirationDate)
+        @Html.ValidationMessageFor(model => model.ExpirationDate)
+    </div>
+
+    <div>
+        @Html.LabelFor(model => model.Category)
+        @Html.EditorFor(model => model.Category)
+        @Html.ValidationMessageFor(model => model.Category)
+    </div>
+
+    <input type="submit" value="Create" />
+}

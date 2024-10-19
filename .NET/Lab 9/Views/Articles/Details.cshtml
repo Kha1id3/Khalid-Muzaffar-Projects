@@ -1,0 +1,32 @@
+@model Lab9.Models.Article
+
+@{
+    ViewBag.Title = "Article Details";
+}
+
+<h2>Article Details</h2>
+
+<div>
+    <h4>Article</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>ID</dt>
+        <dd>@Model.Id</dd>
+
+        <dt>Name</dt>
+        <dd>@Model.Name</dd>
+
+        <dt>Price</dt>
+        <dd>@Model.Price</dd>
+
+        <dt>Expiration Date</dt>
+        <dd>@Model.ExpirationDate.ToShortDateString()</dd>
+
+        <dt>Category</dt>
+        <dd>@Model.Category</dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

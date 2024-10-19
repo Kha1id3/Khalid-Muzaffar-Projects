@@ -1,0 +1,28 @@
+@model Article
+
+<h2>Delete Article</h2>
+
+<h3>Are you sure you want to delete this article?</h3>
+
+<div>
+    <h4>Article</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Name</dt>
+        <dd>@Model.Name</dd>
+
+        <dt>Price</dt>
+        <dd>@Model.Price</dd>
+
+        <dt>Expiration Date</dt>
+        <dd>@Model.ExpirationDate.ToShortDateString()</dd>
+
+        <dt>Category</dt>
+        <dd>@Model.Category</dd>
+    </dl>
+
+    @using (Html.BeginForm()) {
+        <input type="submit" value="Delete" /> 
+        @Html.ActionLink("Back to List", "Index")
+    }
+</div>
