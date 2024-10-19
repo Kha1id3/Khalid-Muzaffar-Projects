@@ -1,0 +1,12 @@
+#Getting username and password 
+username="$1"
+password="$2"
+
+#create the user with the given username
+useradd -m -s /bin/bash "$username"
+
+#setting password
+echo "$username:$password" | chpasswd
+
+#msg
+echo "User $username has been created successfully"

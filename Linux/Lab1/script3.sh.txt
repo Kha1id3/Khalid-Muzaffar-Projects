@@ -1,0 +1,10 @@
+#!/bin/bash
+
+echo "Please enter the name of the street where you grew up:"
+read mystreet
+
+echo "Please enter the name of town where you grew up:"
+read mytown
+
+#output
+echo "The street I grew up was on $mystreet and the town was $mytown.

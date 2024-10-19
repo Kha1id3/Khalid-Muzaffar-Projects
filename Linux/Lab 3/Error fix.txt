@@ -1,0 +1,27 @@
+First of all we need to know what this  "Bad magic number in super-block" error mean. 
+It means that the filesystem you are trying to resize has become corrupted or damaged.
+
+This step is possible way to fix it hopefully.
+
+ Since the error is in superblock we meed to Check the backup superblock: The superblock contains critical information about the filesystem, and the "bad magic number" error may indicate that the primary superblock is corrupt. 
+
+In this case, we can try using one of the backup superblocks to repair the filesystem. 
+
+
+By Running the command 
+dumpe2fs /dev/mapper/abc-data | grep -i superblock
+
+ to find the locations of the backup superblocks. 
+
+Then use the command
+ fsck -b <superblock_location> /dev/mapper/abc-data 
+
+to repair the filesystem using a specific backup superblock. 
+
+Ofc we need replace <superblock_location> with the actual location of the backup superblock that we want to use.
+
+ 
+ Just to make sure we can also :
+Unmount the device: Make sure that the /dev/mapper/abc-data device is not currently mounted. WE can check if the device is mounted by running the mount command. If the device is mounted, 
+unmount it using the command 
+umount /dev/mapper/abc-data

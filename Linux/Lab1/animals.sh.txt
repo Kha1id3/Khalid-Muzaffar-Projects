@@ -1,0 +1,8 @@
+#!/bin/bash
+
+animal=("moose" "cow" "goose" "sow")
+
+for animal in "${animal[@]}"
+do 
+  echo "I have a $animal."
+done

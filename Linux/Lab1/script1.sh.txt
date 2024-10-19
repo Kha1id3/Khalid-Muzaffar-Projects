@@ -1,0 +1,18 @@
+#!/bin/bash
+
+
+#This script will result in current date/time,current working directory, and ho>
+
+#Setting the format to get the date/time(Sat Jan 4 15:45:04 EST 2020)
+current_date_time=$(date +" %a %b %d %T %Z %Y")
+
+#Get the current working directory.
+current_working_directory=$(pwd)
+
+#The hostname.
+hostname=$(hostname)
+
+
+#Prints the information
+echo "Today is $current_date_time."
+echo "You are in $current_working_directory and your host is $hostname."

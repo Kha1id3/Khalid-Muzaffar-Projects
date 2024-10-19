@@ -1,0 +1,12 @@
+#!/bin/bash
+
+echo "what is your favorite operating system"
+read myos
+
+if [[ $myos == "Windows" ]] || [[ $myos == "Mac" ]]; then
+ echo "really $os!! You are a loser"
+elif [[ $myos == "Linus" ]]; then
+ echo "Great choice!"
+else
+ echo "is $myos an operating system?"
+fi

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+
+ONE="1"
+TWO="2"
+THREE="3"
+
+PARA="$#"
+
+ALL_PARA="$*"
+
+echo "There are $PARA parameters that include $ALL_PARA"
+echo "The first is $ONE, the second is $TWO, and the third is $THREE."

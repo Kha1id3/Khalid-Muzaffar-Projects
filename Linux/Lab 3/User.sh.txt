@@ -1,0 +1,17 @@
+#!/bin/bash
+
+#I have made the script to read the users.txt file line by line and extracts the username, full name, group, and password information for each user automatically.
+
+while read -r line; do
+    # Extract the necessary fields from the line
+    username=$(echo "$line" | awk '{print $6}')
+    password="startupPassword123"
+    fullname=$(echo "$line" | awk '{print $3}')
+    group=$(echo "$line" | awk '{print $2}')
+    
+    # Create the user account
+    useradd -m -c "$fullname" -g "$group" "$username"
+    
+    # Set the password for the user account
+    echo "$username:$password" | chpasswd
+done < users.txt
