@@ -1,0 +1,14 @@
+C:\Users\khalo\OneDrive\Desktop\PWR\SEMESTER 5\.NET\Lab7\Lab7\bin\Debug\net8.0\Lab7.exe
+C:\Users\khalo\OneDrive\Desktop\PWR\SEMESTER 5\.NET\Lab7\Lab7\bin\Debug\net8.0\Lab7.deps.json
+C:\Users\khalo\OneDrive\Desktop\PWR\SEMESTER 5\.NET\Lab7\Lab7\bin\Debug\net8.0\Lab7.runtimeconfig.json
+C:\Users\khalo\OneDrive\Desktop\PWR\SEMESTER 5\.NET\Lab7\Lab7\bin\Debug\net8.0\Lab7.dll
+C:\Users\khalo\OneDrive\Desktop\PWR\SEMESTER 5\.NET\Lab7\Lab7\bin\Debug\net8.0\Lab7.pdb
+C:\Users\khalo\OneDrive\Desktop\PWR\SEMESTER 5\.NET\Lab7\Lab7\obj\Debug\net8.0\Lab7.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\khalo\OneDrive\Desktop\PWR\SEMESTER 5\.NET\Lab7\Lab7\obj\Debug\net8.0\Lab7.AssemblyInfoInputs.cache
+C:\Users\khalo\OneDrive\Desktop\PWR\SEMESTER 5\.NET\Lab7\Lab7\obj\Debug\net8.0\Lab7.AssemblyInfo.cs
+C:\Users\khalo\OneDrive\Desktop\PWR\SEMESTER 5\.NET\Lab7\Lab7\obj\Debug\net8.0\Lab7.csproj.CoreCompileInputs.cache
+C:\Users\khalo\OneDrive\Desktop\PWR\SEMESTER 5\.NET\Lab7\Lab7\obj\Debug\net8.0\Lab7.dll
+C:\Users\khalo\OneDrive\Desktop\PWR\SEMESTER 5\.NET\Lab7\Lab7\obj\Debug\net8.0\refint\Lab7.dll
+C:\Users\khalo\OneDrive\Desktop\PWR\SEMESTER 5\.NET\Lab7\Lab7\obj\Debug\net8.0\Lab7.pdb
+C:\Users\khalo\OneDrive\Desktop\PWR\SEMESTER 5\.NET\Lab7\Lab7\obj\Debug\net8.0\Lab7.genruntimeconfig.cache
+C:\Users\khalo\OneDrive\Desktop\PWR\SEMESTER 5\.NET\Lab7\Lab7\obj\Debug\net8.0\ref\Lab7.dll
