@@ -1,0 +1,65 @@
+@model lab10.Models.ArticleViewModel
+
+@{
+    ViewData["Title"] = "Edit Article";
+}
+
+<h1>Edit Article</h1>
+
+<form asp-action="Edit" enctype="multipart/form-data" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Price" class="control-label"></label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+
+    <!-- Existing Image with placeholder fallback -->
+    <div class="form-group">
+        <label>Current Image</label>
+        <img src="@Url.Content(!string.IsNullOrEmpty(Model.ImagePath) ? "~/images/" + Model.ImagePath : "~/images/placeholder.png")" 
+             alt="Current Image" style="max-width: 200px; max-height: 200px;" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ImageFile" class="control-label">New Image</label>
+        <input asp-for="ImageFile" type="file" class="form-control" />
+        <span asp-validation-for="ImageFile" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CategoryId" class="control-label">Select category</label>
+        <select asp-for="CategoryId" asp-items="ViewBag.CategoryId" class="form-control"></select>
+        <span asp-validation-for="CategoryId" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    
+    <!-- Add this script for image preview functionality -->
+    <script>
+        document.getElementById('ImageFile').onchange = function (event) {
+            var output = document.getElementById('imagePreview');
+            output.src = URL.createObjectURL(event.target.files[0]);
+            output.onload = function() {
+                URL.revokeObjectURL(output.src) // free memory
+            }
+        };
+    </script>
+}

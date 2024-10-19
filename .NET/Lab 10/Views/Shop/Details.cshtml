@@ -1,0 +1,16 @@
+@model lab10.Models.Article
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<h1>Product Details</h1>
+
+<div>
+    <h2>@Model.Name</h2>
+    <img src="@Url.Content(!string.IsNullOrEmpty(Model.ImagePath) ? "~/images/" + Model.ImagePath : "~/images/placeholder.png")" 
+         alt="@Model.Name" style="max-width: 400px; max-height: 400px;" /> <!-- Displaying Image -->
+    <p>Price: @Model.Price.ToString("C")</p>
+    <p>Category: @Model.Category.Name</p>
+</div>
+
+<a asp-action="Index">Back to Shop</a>
