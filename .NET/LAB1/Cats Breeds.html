@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Your Name">
+    <meta name="keywords" content="cats, cat breeds, pet care">
+    <meta name="description" content="A website about different cat breeds and pet care">
+    <title>Cat Breeds</title>
+    <style>
+        /* General body styling */
+        body {
+            background-color: #f0f0f0; /* A light grey background */
+            font-family: Arial, sans-serif;
+        }
+
+        /* Huge title on top middle */
+        h1 {
+            text-align: center;
+            font-size: 48px;
+            margin-top: 20px;
+        }
+
+        /* Special characters */
+        .special-characters {
+            text-align: center;
+            font-size: 24px;
+            margin-top: 10px;
+        }
+
+        /* Text formatting */
+        .formatted-text {
+            font-weight: bold;
+            font-style: italic;
+            text-decoration: underline;
+            color: #ff6600;
+        }
+
+        /* Box styling with grey background */
+        .box {
+            background-color: #cccccc; /* A darker grey for the box */
+            border-radius: 10px; /* Rounded corners */
+            margin: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* A subtle shadow for depth */
+        }
+
+        /* Using flexbox to create a horizontal layout */
+        .breeds-container {
+            display: flex;
+            justify-content: space-around; /* Distribute items evenly */
+            flex-wrap: wrap; /* Allows wrapping to the next line if needed */
+            padding: 20px;
+        }
+
+        .breed {
+            text-align: center; /* Center text and images */
+            margin: 10px;
+        }
+
+        .breed img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%; /* Makes images circular for a creative touch */
+            margin-bottom: 10px; /* Spacing between image and text */
+        }
+
+        .breed h3 {
+            margin: 0; /* Resetting the margin to have a tighter layout */
+        }
+
+        /* Lists */
+        ul.special-list {
+            list-style-type: square;
+        }
+
+        ol.ordered-list {
+            list-style-type: decimal;
+        }
+
+        .definition-list {
+            margin-left: 20px;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        /* Form */
+        .form-container {
+            margin: 20px;
+        }
+
+        /* Internal Link */
+        .internal-link {
+            color: blue;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        /* New Page Structure Elements */
+        section {
+            padding: 20px;
+            background-color: #e0e0e0;
+            margin-top: 20px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <h1>🐾Cat Breeds🐾</h1>
+    <div class="special-characters">
+        Special Characters: &copy; &reg; &trade; &hearts; &clubs;
+    </div>
+    <div class="box">
+        <div class="breeds-container">
+            <!-- Persian Breed -->
+            <div class="breed">
+                <img src="https://cdn.shopify.com/s/files/1/1199/8502/files/persian-doll-face.jpg" alt="Persian Cat">
+                <h3>Persian</h3>
+                <p>The Persian cat is known for its long hair and sweet nature. They are often quiet and enjoy a calm environment.</p>
+            </div>
+            <!-- Maine Coon Breed -->
+            <div class="breed">
+                <img src="https://www.thesprucepets.com/thmb/MzKr6fC-v8W4D4oz2p9wWCwAFms=/2119x0/filters:no_upscale():strip_icc()/GettyImages-1189893683-e0ff70596b3b4f0687ba573e5a671f74.jpg" alt="Maine Coon Cat">
+                <h3>Maine Coon</h3>
+                <p>Maine Coons are one of the largest domesticated cat breeds. They are gentle-natured and friendly.</p>
+            </div>
+            <!-- Siamese Breed -->
+            <div class="breed">
+                <img src="https://www.dailypaws.com/thmb/tPXFfGDaeXPytWTKsYQgU1E3LeU=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/siamese-cat-couch_525025708-2000-e914b62ff65f4df39a7f55b87bf49213.jpg" alt="Siamese Cat">
+                <h3>Siamese</h3>
+                <p>Siamese cats are known for their striking features and vocal personality.</p>
+            </div>
+             <!-- Himalayan  Breed -->
+             <div class="breed">
+                <img src="https://a-z-animals.com/media/2021/11/Himalayan.jpg" alt="Himalayan Cat">
+                <h3>Himalayan</h3>
+                <p>Himalayans are a cross between Persian and Siamese cats. They have blue eyes and a gentle nature.</p>
+            </div>
+        </div>
+
+        <!-- Links -->
+        <h2>For More Cat Information</h2>
+        <ul class="special-list">
+            <li><a href="#table-section" class="internal-link">Jump to Table</a></li>
+            <li><a href="#list-section" class="internal-link">Jump to Lists</a></li>
+            <li><a href="#form-section" class="internal-link">Jump to Form</a></li>
+        </ul>
+        <p>Visit the <a href="https://www.cats.org.uk/" target="_blank">Cat Protection</a> website for more details on cat care and adoption.</p>
+
+        <!-- Zipped File Link -->
+        <h2>Download Cat Resources</h2>
+        <p><a href="C://Users//Khalid//Desktop//PWR//SEM 5//.NET//LAB1//meow.zip" download>Click here</a> to download a zipped file containing adorable cat pictures 😍.</p>
+    </div>
+
+   
+
+    <!-- Lists Section -->
+    <section id="list-section">
+        <h2>Lists</h2>
+        <h3>Ordered List</h3>
+        <ol class="ordered-list">
+            <li>Item 1</li>
+            <li>Item 2</li>
+            <li>Item 3</li>
+            <li>Item 4</li>
+            <li>Item 5</li>
+        </ol>
+        <h3>Unordered List</h3>
+        <ul class="special-list">
+            <li>Item A</li>
+            <li>Item B</li>
+            <li>Item C</li>
+            <li>Item D</li>
+            <li>Item E</li>
+        </ul>
+        <h3>List of Definitions</h3>
+        <dl class="definition-list">
+            <dt>Term 1</dt>
+            <dd>Definition 1</dd>
+            <dt>Term 2</dt>
+            <dd>Definition 2</dd>
+            <dt>Term 3</dt>
+            <dd>Definition 3</dd>
+        </dl>
+        <h3>Nested Lists</h3>
+        <ul class="special-list">
+            <li>Level 1
+                <ul>
+                    <li>Level 2-1
+                        <ul>
+                            <li>Level 3-1</li>
+                            <li>Level 3-2</li>
+                        </ul>
+                    </li>
+                    <li>Level 2-2
+                        <ul>
+                            <li>Level 3-1</li>
+                            <li>Level 3-2</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+
+    <!-- Tables Section -->
+    <section id="table-section">
+        <h2>Tables</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Cat Breed</th>
+                    <th>Origin</th>
+                    <th>Average Weight</th>
+                    <th>Average Lifespan</th>
+                    <th>Temperament</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Persian</td>
+                    <td>Persia</td>
+                    <td>8-12 lbs</td>
+                    <td>15+ years</td>
+                    <td>Sweet and Quiet</td>
+                </tr>
+                <tr>
+                    <td>Maine Coon</td>
+                    <td>United States</td>
+                    <td>13-18 lbs</td>
+                    <td>12-15 years</td>
+                    <td>Gentle and Friendly</td>
+                </tr>
+                <tr>
+                    <td>Siamese</td>
+                    <td>Thailand</td>
+                    <td>6-10 lbs</td>
+                    <td>12-15 years</td>
+                    <td>Vocal and Social</td>
+                </tr>
+                <tr>
+                    <td>Himalayan</td>
+                    <td>United States</td>
+                    <td>7-12 lbs</td>
+                    <td>12-15 years</td>
+                    <td>Gentle and Affectionate</td>
+                </tr>
+                <tr>
+                    <td>Ragdoll</td>
+                    <td>United States</td>
+                    <td>12-20 lbs</td>
+                    <td>12-17 years</td>
+                    <td>Relaxed and Docile</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="5">Cat Breed Information</th>
+                </tr>
+            </tfoot>
+        </table>
+    </section>
+
+    <!-- Form Section -->
+    <section id="form-section">
+        <h2>Feedback Form</h2>
+        <div class="form-container">
+            <form action="#" method="post">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required><br><br>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required><br><br>
+                <label for="rating">Rating:</label>
+                <input type="number" id="rating" name="rating" min="1" max="5" required><br><br>
+                <label for="comments">Comments:</label><br>
+                <textarea id="comments" name="comments" rows="4" cols="50" required></textarea><br><br>
+                <label for="subscribe">Subscribe to Newsletter:</label>
+                <input type="checkbox" id="subscribe" name="subscribe"><br><br>
+                <label for="pet">Select Your Pet:</label>
+                <select id="pet" name="pet" required>
+                    <option value="dog">Dog</option>
+                    <option value="cat">Cat</option>
+                    <option value="bird">Bird</option>
+                </select><br><br>
+                <label>Preferred Contact Method:</label><br>
+                <input type="radio" id="contact-email" name="contact-method" value="email" required>
+                <label for="contact-email">Email</label><br>
+                <input type="radio" id="contact-phone" name="contact-method" value="phone" required>
+                <label for="contact-phone">Phone</label><br><br>
+                <label for="file-upload">Upload a File:</label>
+                <input type="file" id="file-upload" name="file-upload"><br><br>
+                <input type="submit" value="Submit">
+                <input type="reset" value="Reset">
+            </form>
+        </div>
+    </section>
+
+
+    
+     <!-- Footer Section -->
+     <footer>
+        <h2>Contact Us</h2>
+        <p>If you have any questions, please email us at: <a href="mailto:info@catbreeds.com">info@catbreeds.com</a></p>
+    </footer>
+</body>
+
+
+</html>
