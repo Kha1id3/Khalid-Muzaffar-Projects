@@ -1,0 +1,68 @@
+
+object Lab5 extends App {
+
+//Task 1
+
+  def lrepeat[A](k:Int, lxs:LazyList[A]):LazyList[A] = {
+
+    def repeat [A](list:LazyList[A], k:Int):LazyList[A] = k match {
+      case 0 => LazyList()
+      case 1 => list
+      case _ => repeat(list.head#::list, k-1)
+    }
+
+    lxs match {
+      case LazyList() => LazyList()
+      case _ => repeat(LazyList(lxs.head),k) #::: lrepeat(k,lxs.tail)
+    }
+  }
+
+  println(lrepeat(2, LazyList(1,2,3,4,5)).take(100).toList)
+  println(lrepeat(3, LazyList(1,2)).take(100).toList)
+  println(lrepeat(0, LazyList(1,2,3,4)).take(100).toList)
+
+
+
+//Task 2
+
+  val fibs: LazyList[Int] = {0 #:: 1 #:: fibs.zip(fibs.tail).map{ n => n._1 + n._2 }
+  
+}
+fibs.take(7).foreach(println)
+
+  val fib: LazyList[Int] = {
+    def fibFrom(a: Int, b: Int): LazyList[Int] = a #:: fibFrom(b, a + b)
+    fibFrom(0,1)
+  }
+
+  fib.take(7).foreach(println)
+
+
+
+//Task 3
+
+
+  sealed trait lBT[+A]
+  case object LEmpty extends lBT[Nothing]
+  case class LNode[+A](elem: A, left:() => lBT[A], right:() => lBT[A]) extends  lBT[A]
+
+  def lTree(n: Int): lBT[Int] ={
+    LNode(n,() => lTree(2*n), () => lTree(2*n+1))
+  }
+
+  def bfs[A](ltree: lBT[A]):LazyList[A] = {
+    def bfsInner(list:List[lBT[A]]):LazyList[A] ={
+      list match{
+        case Nil => LazyList[A]()
+        case LEmpty:: t => bfsInner(t)
+        case LNode(value, left, right) :: t => LazyList.cons(value, bfsInner(t ++ List(left(),right())))
+      }
+    }
+    bfsInner(List(ltree))
+  }
+
+  def tree(n:Int): LNode[Int] ={ LNode(n, () => tree(2*n), () => tree(2*n+1))}
+
+
+
+}

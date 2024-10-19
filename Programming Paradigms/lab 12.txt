@@ -1,0 +1,94 @@
+//Task 1
+import akka.actor.Actor
+import akka.actor.Props
+import akka.event.Logging
+
+class Actor extends Actor {
+  val log = Logging(context.system, this)
+  
+  def receive = {
+    case "msg" => log.info("received msg")
+    case "Anna" => log.info("Hi Anna")
+    case "Tom" => log.info("Hello Tom")
+    case "Khalid" => log.info("Welcome Khalid")
+    case _ => log.info("received unknown message")
+  }
+}
+
+object Main extends App {
+  val system = actorSystem("MySystem")
+  val actorname = system.actorOf(Props[Actor], name = "actorname")
+  
+ 
+  actorname ! "Anna"
+  actorname ! "Tom"
+  actorname ! "Khalid"
+  actorname ! "Abdul"
+}
+//Task 2
+import scala.actors._
+import scala.util.Random
+
+case class Ball(val points: Int, val sender: actor)
+
+class Player(val name: String, val Player2: actor) extends actor {
+  def act() {
+    react {
+      case Ball(points, sender) =>
+        if (Random.nextInt(10) > 3) {
+          println(s"$ball has been hit by $name")
+          Player2 ! Ball(points + 1, this)
+        } else {
+          println(s"ball has been missed by $name . Score: ${points}")
+        }
+        act()
+    }
+  }
+}
+
+object PingPong extends App {
+  val player1 = new Player("Player 1", null)
+  val player2 = new Player("Player 2", player1)
+  player1.Player2 = player2
+
+  player1.start()
+  player2.start()
+
+  player2 ! Ball(0, player1)
+}
+//Task 3
+import scala.actors._
+import scala.util.Random
+
+case class Ball(val count: Int)
+
+class Player(val name: String, val player1: actor, val player2: actor) extends actor {
+  def act() {
+    loop {
+      receive {
+        case Ball(count) =>
+          println(s"$name received the ball")
+          if (Random.nextInt(2) == 0) {
+            player1 ! Ball(count + 1)
+          } else {
+            player2 ! Ball(count + 1)
+          }
+      }
+    }
+  }
+}
+
+object Game extends App {
+  val player1 = new Player("Player 1", null, null)
+  val player2 = new Player("Player 2", player1, null)
+  val player3 = new Player("Player 3", player1, player2)
+  player1.player1 = player3
+  player1.player2 = player2
+  player2.player2 = player3
+
+  player1.start()
+  player2.start()
+  player3.start()
+
+  player1 ! Ball(0)
+}

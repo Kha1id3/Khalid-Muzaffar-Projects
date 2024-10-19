@@ -1,0 +1,55 @@
+//Task 1
+
+//Recusion way :
+static int fib(int n)
+    {
+        if (n <= 1)
+            return n;
+        return fib(n - 1) + fib(n - 2);
+    }
+//Loop way :
+
+int n=5;//position of the fibonacci number to find
+int fibonacci=0,num=0,num2=1;
+for(int loop=1;loop<n;loop++)
+{
+   fibonacci=num+num2;
+   num=num2;
+   num2=fibonacci;
+}
+System.out.println(num);
+
+
+//Task 2
+
+static int div (int a,int b) {
+    int result = 0;
+    try {
+
+result = a/b;
+
+
+    } catch (ArithmeticException e) {
+
+        System.out.println(
+                "Divided by zero operation cannot possible");
+    }
+
+    return result;
+}
+
+
+
+// Task 3
+
+Method isEqual1 will return True because int is an immutable primative data type it is having the same memory adress so the operator == will give true
+Method isEqual2 will retur False because interger is an mutable warper class so it has diffrent memory adress so the operator== will give false
+
+
+
+//Task 4
+True //using the == operator we the comparing the memory of s1 and s2 since the both have same moemory asdress in string pool is true.
+True  //using the .equals() method we are comnparing the content(not adresss) of the strings and since they are same its true.
+False //since here we created a new string object so the adress are different it will give false.
+True //since the content is same "foo" it will reutrn true.
+

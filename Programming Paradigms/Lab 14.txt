@@ -1,0 +1,44 @@
+
+//Task 1
+
+import rx.lang.scala._
+
+val account1 = Subject[Int]()
+val account2 = Subject[Int]()
+
+val combined = account1.scan(0)(_ + _)
+  .combineLatestWith(account2.scan(0)(_ + _))((a1, a2) => a1 + a2)
+  .distinctUntilChanged
+
+combined.subscribe(total => println(s"Total: $$$total"))
+
+account1.onNext(100)
+account2.onNext(50)
+account1.onNext(-200)
+account2.onNext(25)
+
+
+
+//Task 2
+import rx.lang.scala._
+
+val account1: Observable[Double] = Observable.from(List(1000.0, 200.0, 1600.0))
+val account2: Observable[Double] = Observable.from(List(500.0, 100.0, 800.0))
+val sum: Observable[Double] = account1.combineLatest(account2)(_ + _)
+
+sum.subscribe(s => println("Sum: " + s))
+
+
+//Task 3
+
+import rx.lang.scala._
+import scala.concurrent.duration._
+
+val naturalNumbers: Observable[Int] = Observable.interval(20.seconds).map(_ + 1)
+
+def factorial(n: Int): Int = {
+  if (n == 0) 1 else n * factorial(n - 1)
+}
+val factorials: Observable[Int] = naturalNumbers.map(factorial)
+
+factorials.subscribe(f => println(s"Current factorial: $f"))

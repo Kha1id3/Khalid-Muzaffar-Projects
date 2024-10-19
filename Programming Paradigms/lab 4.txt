@@ -1,0 +1,141 @@
+
+
+object Lab4 extends App {
+
+
+  //Task 1
+  def numberStream(n: Int):
+  Stream[Int] = Stream.from(n)
+
+  def sieve_of_Eratosthenes(stream: Stream[Int]):
+
+  Stream[Int] = stream.head #:: sieve_of_Eratosthenes(
+
+    (stream.tail)
+
+      filter (x => x % stream.head != 0)
+
+  )
+
+  val no_of_primes = sieve_of_Eratosthenes(numberStream(2))
+  println("\nPrime numbers:")
+  (no_of_primes take 47) foreach {
+
+    println(_)
+
+  }
+  //Task 2
+  implicit class cal(char: Char) {
+    def toNum: Int = char - '0'
+
+  }
+
+  def SimpleCalculator(s: List[Char]): Int = {
+    s match {
+      case num1 :: op :: List(num2) =>
+        op match {
+          case '+' => num1.toNum + num2.toNum
+          case '-' => num1.toNum - num2.toNum
+
+        }
+
+
+    }
+
+
+  }
+
+  println("\nSimple calculator with sealed trait(case object):")
+  List("3+3", "2-1") foreach { i =>
+    println(i + " = " + SimpleCalculator(i.toList))
+  }
+
+//Task 3 at the end
+
+  //Task 4
+  abstract class Gate() {
+    def value: Boolean
+  }
+
+  class InputElement() extends Gate() {
+    var v = false
+
+    def set(s: Boolean) {
+      v = s
+    }
+
+    def value = v
+  }
+
+  class NotGate(in: Gate) extends Gate() {
+    def value = !in.value
+  }
+
+  class OrGate(in1: Gate, in2: Gate) extends Gate() {
+    def value = in1.value || in2.value
+  }
+
+  class AndGate(in1: Gate, in2: Gate) extends Gate() {
+    def value = in1.value && in2.value
+  }
+
+  class ConsGate(v: Boolean) extends Gate() {
+    def value = v
+  }
+
+  object Gate {
+    val False = new ConsGate(false)
+    val True = new ConsGate(true)
+  }
+
+  
+
+
+  //Task 5
+  def typeOf(arg: AnyVal): String = {
+
+    arg match {
+      case _: Boolean => "Argument = Boolean , Value = " + arg + "\n"
+      case _: Char => "Argument = Character , Value = " + arg + "\n"
+      case _: Int => "Argument = Int , value = " + arg + "\n"
+      case _: Float => "Argument = Float  , Value = " + arg + "\n"
+      case _: Double => "Argument = Double , Value = " + arg + "\n"
+    }
+  }
+
+
+  val arg_bool: AnyVal = true
+  val arg_char: AnyVal = 'a'
+  val arg_int: AnyVal = 8
+  val arg_float: AnyVal = 69.0f
+  val arg_double: AnyVal = 6.00
+  println("\nTypes of Arguments:")
+  print(typeOf(arg_bool))
+  print(typeOf(arg_char))
+  print(typeOf(arg_int))
+  print(typeOf(arg_float))
+  print(typeOf(arg_double))
+
+
+
+}
+
+----------------------------------------------------
+
+//Task 3 used online Scala 3 compiler
+object Lab4 {
+
+  enum Calculator:
+    case Add(a: Int, b: Int)
+    case Neg(n: Int)
+  end Calculator
+  def cal(c: Calculator): Int = c match {
+    case Calculator.Add(a, b) => a + b
+    case Calculator.Neg(n) => -n
+  }
+
+  def main(args: Array[String]): Unit = {
+   println(cal(Calculator.Add(3, 3)))
+  }
+
+}

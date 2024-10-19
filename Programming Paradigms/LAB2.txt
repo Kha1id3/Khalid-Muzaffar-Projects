@@ -1,0 +1,75 @@
+import scala.::
+import scala.annotation.tailrec
+import scala.collection.convert.ImplicitConversions.`seq AsJavaList`
+
+
+object Lab2 {
+  //Task 1
+  val TestList: List[Int] = List(2, 4, 5, 6, 7, 4)
+//Tried task 1 my best but couldnt do it,but other tasks looks good ,hopefully
+  //the comments are task 1
+
+
+
+  //def sumOfodd(TestList: List[Int]): Unit = {
+    //val n = TestList.filter(_ % 2 != 0).sum
+    // @tailrec
+    // def odd_num(TestList: List[Int]): Unit = TestList match {
+
+    //case _ if (TestList==null) => return 0
+    //case _ => odd_num(TestList)
+
+
+    //}
+
+    //return odd_num(TestList)
+    // }
+
+    //def Sumadd(TestList: List[Int]): Int = {
+     // val n = TestList.filter(_ % 2 != 0)
+     // if (n == 0) return 0
+     // else n + Sumadd(n )
+    //}
+
+    //Task 2
+    def add(myList: List[String], n: String): String = {
+      var FillChar = ""
+      for (i <- 0 until myList.size) {
+        FillChar += myList.get(i) + n
+      }
+      return FillChar
+    }
+
+
+    //Task 3
+
+    def count[A](element: A, list: List[A]): Int =
+      if (list == Nil) 0
+      else (if (list.head == element) 1 else 0) + count(element, list.tail)
+
+
+    //Task 4
+    def tailRecFib(n: Int): BigInt = {
+      @tailrec
+      def fib_tail(n: Int, a: Int, b: Int): Int = n match {
+        case 0 => a
+        case _ => fib_tail(n - 1, b, a + b)
+      }
+
+
+      return fib_tail(n, 0, 1)
+    }
+
+    def main(args: Array[String]): Unit = {
+      //Task 1
+      val TestList: List[Int] = List(2, 4, 5, 6, 7, 4)
+      println(count('a', List('a', 'l', 'a', 'a')))
+      //println(sumOfodd(TestList))
+      //println(Sumadd())
+      val myList: List[String] = List("HELP", "ME", "Please")
+      val n = ","
+      println(tailRecFib(6))
+      println(add(myList, n))
+    }
+
+}

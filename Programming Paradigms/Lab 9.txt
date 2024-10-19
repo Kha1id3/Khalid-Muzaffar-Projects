@@ -1,0 +1,128 @@
+//Task 1
+class Customer (
+    var name: String,
+    var phoneNumber: String,
+    var address: Address
+)
+class Address (
+    var PostalCode: String
+    var street: String,
+    var city: String,
+    var Country: String,
+    
+)
+
+//Task 2
+def getPrice(
+    toppingsPrices: Map[Topping, Int],
+    crustSizePrices: Map[CrustSize, Int],
+    crustTypePrices: Map[CrustType, Int]
+): Int = ???
+
+
+
+//Task 3
+abstract class Animal(name:String) {
+  def eat(): Unit
+  def sleep(): Unit
+  def happy(): Unit
+}
+class Dog(name: String) extends Animal(name) {
+  override def eat() = println(s"$name is eating")
+  def sleep() = println(s"$name is sleep")
+  def happy() = println(s"$name is happy")
+}
+  def main(args: Array[String]): Unit = {
+    val d = new Dog("abdul")
+    d.eat()
+  }
+
+
+//Task 4
+class Time {
+  var time: Time = _
+}
+
+object Time {
+
+  def apply(time: Int): Int = {
+    val t = new Time
+    t.time = t: Time
+    if (time < 0) 0 else time
+  }: Int
+
+  def main(args: Array[String]): Unit = {
+    val time1 = Time(3)
+    val time2 = Time(-3)
+    println(time1)
+    println(time2)
+  }
+
+}
+
+
+
+//Task 5
+object Singleton {
+ 
+
+   
+    var LieMessage = "I Love PWR";
+    var TrueMessage = "I hate PWR";
+
+   
+    def display()
+    {
+      println(LieMessage);
+      println(TrueMessage);
+    }
+  }
+
+  
+  object Main
+  {
+    def main(args: Array[String])
+    {
+
+     
+      Singleton.display();
+    }
+  
+}
+
+
+//Task 6
+public class Book {
+    private String name;
+    private Author author;
+    private double price;
+    private int qty;
+    
+    public Book(String name, Author author, double price, int qty) {
+        this.name = name;
+        this.author = author;
+        this.price = price;
+        this.qty = qty;
+    }
+    public String getName() {
+        return name;
+    }
+    public Author getAuthor() {
+        return author;  
+    }
+    public double getPrice() {
+        return price;
+    }
+    public void setPrice(double price) {
+        this.price = price;
+    }
+    public int getQty() {
+        return qty;
+    }
+    public void setQty(int qty) {
+        this.qty = qty;
+    }
+    public String toString() {
+        return "'" + name + "' by " + author;  
+    }
+}

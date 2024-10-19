@@ -1,0 +1,127 @@
+import scala.annotation.tailrec
+
+
+object list {
+
+//Task 1
+  def sum(list: List[Int]): Int = {
+    @tailrec
+    def sum2(list: List[Int], currentSum: Int): Int = list match {
+      case Nil => currentSum
+      case x :: xs => sum2(xs, currentSum + x)
+    }
+
+    sum2(list, 0)
+  }
+
+//task 2
+def reverse(list: List[Int]): List[Int] = list match {
+  case h :: tail => reverse(tail) ::: List(h)
+  case Nil => Nil
+}
+
+  def reversetail(l: List[Int]): List[Int] = {
+    @tailrec
+    def _reverse(res: List[Int], rem: List[Int]): List[Int] = rem match {
+      case Nil => res
+      case h :: tail => _reverse(h :: res, tail)
+    }
+    _reverse(Nil, l)
+  }
+
+//Task 3
+def merge(a: List[Int], b: List[Int]): List[Int] = a match {
+
+  case head :: tail => head :: merge(b, tail)
+  case _ => b
+}
+
+  //Task 4
+  def tailRecFib(n: Int): BigInt = {
+    @tailrec
+    def fib_tail(n: Int, a: Int, b: Int): Int = n match {
+      case 0 => a
+      case _ => fib_tail(n - 1, b, a + b)
+    }
+
+
+    return fib_tail(n, 0, 1) //adds the numbers on the same stack and keeps returning it
+                            // rather then diffrent stack like normal recursion we did in class
+
+  }
+
+//Task 5
+def split[A](l: List[A]): (List[A],List[A]) = l match {
+  case x::xs::res => val (ra, rb) = split(res)
+    (x::ra, xs::rb)
+  case a::Nil     => (a::Nil, Nil)
+  case _          => (Nil, Nil)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+//Task 6
+def isSorted(list: List[Int])(implicit ord: Ordering[Int]): Boolean = list match {
+  case Nil => true // an empty list is sorted
+  case x :: Nil => true // a single-element list is sorted
+  case x :: xs => ord.lteq(x, xs.head) && isSorted(xs) // if the first two elements are ordered and the rest are sorted, the full list is sorted too
+}
+
+
+//Task 7
+
+
+
+    def findKth[A](k: Int, l: List[A]): A = (k, l) match {
+      case (0, h :: _) => h
+      case (k, _ :: tail) if k > 0 => findKth(k - 1, tail)
+     case _ => throw new NoSuchElementException
+    }
+
+
+  println("Please input pressure value ")
+    var atm = scala.io.StdIn.readFloat()
+  var psi = atm * 14.6956
+  var torr = atm * 760
+  var pascal = atm * 101325
+  var bar = atm * 1.01325
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  def main(args: Array[String]): Unit = {
+    val TestList: List[Int] = List(1, 2, 3, 4, 5, 6,5,8,7)
+    val TestList2: List[Int] = List(7, 8, 9, 10, 11, 12)
+
+   //print(findKth(2, List(1, 1, 2, 3, 5, 8),4))
+    println(sum(List.range(1, 10)))
+    println(reverse(TestList))
+    println(reversetail(TestList))
+    println(merge(TestList,TestList2))
+    println(tailRecFib(5))
+    println(isSorted(TestList))
+
+    println("Pressure          : " + atm + " ATM")
+    println("Convert To PSI    : " + psi + " PSI")
+    println("Convert To Torr   : " + torr + " Torr")
+    println("Convert To Pascal : " + pascal + " Pascal")
+    p

@@ -1,0 +1,74 @@
+//Task 1
+def makeNoise(anyAnimal: {def makeNoise(): String}) {
+    println(anyAnimal.makeNoise())
+}
+
+class cow {
+    def makeNoise(): String = "moooooO"
+}
+
+class Cat {
+    def makeNoise(): String = "Meowww"
+}
+
+val mello = new cow
+val Dora = new Cat
+makeNoise(Cow) 
+makeNoise(Dora) 
+
+//Task 2
+It will produce eroor in last line because 'foo' is specified as a variable of type  but is being assigned an instance of 'bar'.
+
+
+trait MainMethod {
+    def method(input: String): String
+}
+
+class Foo extends MainMethod {
+    def method(input: String) = input
+}
+class Bar extends MainMethod {
+    def method(input: String) = input
+}
+
+val foo: MainMethod = new Bar()
+
+//Task 3
+//task3
+class Person(val firstName: String, val lastName: String) extends Ordered[Person] {
+
+  def compare(that: Person): Int = {
+
+    if (this.lastName != that.lastName) {
+
+      this.lastName.compareTo(that.lastName)
+    } else {
+
+      this.firstName.compareTo(that.firstName)
+    }
+  }
+}
+
+val persons = List(new Person("Khalid", "Muzaffar"), new Person("Zayn", "Ali"), new Person("Jan", "Muzaffar"))
+
+val sortedPersons = persons.sorted
+
+//Task 4
+def wordCounter(text: String): scala.collection.mutable.Map[String, Int] = {
+
+  val wordCounts = scala.collection.mutable.Map[String, Int]()
+
+  for (word <- text.split(" ")) {
+
+    val count = wordCounts.getOrElse(word, 0)
+
+    wordCounts(word) = count + 1
+  }
+
+  wordCounts
+}
+
+val words = "Hello its me ,I been Wondering after alll the years.. "
+
+val wordCounts = wordCounter(words)
+

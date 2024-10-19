@@ -1,0 +1,213 @@
+//Task 1
+Because the operation is initially executed by the main thread, which outputs "Hello main," this occurs.
+The job is then used to start a new thread, however this does not print anything. On the main thread, "Done!" is finally printed.
+
+//Task 2
+
+
+public class account {
+
+
+
+int balance = 10000;
+
+
+void withdraw(int amt){
+
+System.out.println("Withdraw : ");
+
+if(amt > balance)
+
+System.out.println("Insufficient balance, You broke!");
+
+else
+
+balance -= amt;
+
+
+System.out.println("Blance Remaining: " + balance);
+
+}
+
+
+
+void deposit(int amt){
+
+
+
+System.out.println("Deposit start: ");
+
+balance += amt;
+
+
+
+System.out.println("Remaining balance: " + balance);
+
+}
+
+}
+
+
+class main_class{
+
+public static void main(String[] args) {
+
+account ob = new account(); 
+
+
+
+Thread withdrawThread = new Thread(){
+
+public void run(){
+
+ob.withdraw(1000);
+
+}
+
+};
+
+
+
+Thread depositThread = new Thread(){
+
+public void run(){
+
+ob.deposit(500);
+
+}
+
+};
+
+
+withdrawThread.start();
+
+depositThread.start();
+
+}
+
+}
+
+
+//Problem:Since the threads are unsynchronized the final value of balance will be diffrent .so after the deposit the output will still show intial value because 
+The value withdraw method was working with initially was stored in its cache and even though deposit method changed the value of balance variable, it did not apply to 
+withdraw variable because the threads are unsynchronized.
+
+//Task 3
+public class Account {
+private int balance = 10000;
+
+public synchronized void withdraw(int amt) {
+System.out.println("Withdraw : ");
+if (amt > balance) {
+System.out.println("Insufficient balance, You broke!");
+} else {
+balance -= amt;
+}
+System.out.println("Blance Remaining: " + balance);
+}
+
+public synchronized void deposit(int amt) {
+System.out.println("Deposit start: ");
+balance += amt;
+System.out.println("Remaining balance: " + balance);
+}
+}
+
+
+//Task 4
+package exercises.list11;
+
+public class Philosopher implements Runnable {
+
+   
+    private Object leftFork;
+    private Object rightFork;
+
+    public Philosopher(Object leftFork, Object rightFork) {
+        this.leftFork = leftFork;
+        this.rightFork = rightFork;
+    }
+
+    private void doAction(String action) throws InterruptedException {
+        System.out.println(Thread.currentThread().getName() + " " + action);
+        Thread.sleep(((int) (Math.random() * 100)));
+    }
+
+    @Override
+    public void run() {
+        try {
+            while (true) {
+                
+                doAction(System.nanoTime() + ": Thinking");
+                synchronized (leftFork) {
+                    doAction(System.nanoTime() + ": Picked up left fork");
+                    synchronized (rightFork) {
+                        
+                        doAction(System.nanoTime() + ": Picked up right fork - eating");
+                        doAction(System.nanoTime() + ": Put down right fork");
+                    }
+                   
+                    doAction(System.nanoTime() + ": Put down left fork. Back to thinking");
+                }
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            return;
+        }
+    }
+}
+//Main
+ final Philosopher[] philosophers = new Philosopher[5];
+        Object[] forks = new Object[philosophers.length];
+
+        for (int i = 0; i < forks.length; i++) {
+            forks[i] = new Object();
+        }
+
+        for (int i = 0; i < philosophers.length; i++) {
+            Object leftFork = forks[i];
+            Object rightFork = forks[(i + 1) % forks.length];
+
+            if (i == philosophers.length - 1) {
+
+                // The last philosopher picks up the right fork first
+                philosophers[i] = new Philosopher(rightFork, leftFork);
+            } else {
+                philosophers[i] = new Philosopher(leftFork, rightFork);
+            }
+
+            Thread t
+                    = new Thread(philosophers[i], "Philosopher " + (i + 1));
+            t.start();
+        }
+    }
+
+//Task 5
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class NextInteger {
+	public static void main(String[] args) {
+		
+		ExecutorService ex = Executors.newSingleThreadExecutor();
+		
+		ex.execute(new Runnable() {
+			@Override
+			public void run() {
+				for (int i = 0; i < 30; i++) {
+					//printing next integer
+					System.out.println("Next integer: " + i);
+					//pausing for 1 second
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+					}
+				}
+			}
+		});
+		ex.shutdown();
+	}
+}
+//What is best:For this use, newSingleThreadExecutor ExecutorService works well. Using a single worker thread, the newSingleThreadExecutor is used to carry out sequential operations. 
+The sole need in this case is to produce numbers beginning with 0 once every second, therefore there is no need to use multiple threads. So newSingleThreadExecutor is ideal in this situation.

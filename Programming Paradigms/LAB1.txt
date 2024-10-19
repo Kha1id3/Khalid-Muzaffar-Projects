@@ -1,0 +1,60 @@
+import scala.reflect.ClassManifestFactory.Int
+
+object HelloWorld {
+   def main(args: Array[String]): Unit = {
+     println("Hello, world!")
+     var k = Array("khalid")
+     for (x <- k) {
+       println(x)
+     }
+     //task 3
+     var sum = 0.0;
+     var sumARR = Array(1, 3, 4, 5) //using var instead of int and diffing the array after equal
+     for (i <- 0 to (sumARR.length - 1)) { // for loop command diffrence (moving from one emelemt using i++ in java here rather  we go directly
+       sum += sumARR(i); //defining directly rather then sum + then array
+
+
+     }
+     println("The sum is " + sum)
+
+
+     def sumOfArray(a: Array[Int], n: Int) :Int = //no return command but int= at the beginning
+       if (n == 0)
+         a(n)
+     else a(n) + sumOfArray(a, n - 1)
+     var sumA = Array(1, 3, 4, 5)
+     var b = sumA.length - 1
+     println( "Sum of recursion " + sumOfArray(sumA,b))
+   }
+
+  
+
+//Task 4
+  //Returns Int
+  //prints on screen value 10
+
+//Task 5
+  //returns Int
+  // prints on screen sum of X,Y,Z (12)
+
+ }
+/////////////////////////////////////////////////////////
+	Task 2 (JAVA)
+
+
+package sum;
+
+public class sum {
+    public static void main(String [] args) {
+        int [] arr = new int [] {1,3,4,5} ;
+        int sum = 0;
+        for (int i = 0; i< arr.length; i++){
+            sum = sum + arr[i];
+        }
+        System.out.println(sum);
+    }
+}
+
+
+
+

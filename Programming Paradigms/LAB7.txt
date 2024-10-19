@@ -1,0 +1,441 @@
+---------------------Task 1------------------
+public class Dog {
+
+
+       String name ="Dora"; //State is what our class has like name age and breed
+        int  age = 2; //State
+       String  breed = "Italian"; //State
+
+    void barking() { //Behavior since it's a method showing the behavior of dog
+    System.out.println("AWW AWW MAMA MIA AW AWW");
+        }
+
+
+
+
+    public static void main(String args[]){
+        Dog class_dog = new Dog(); //iDENTITY since it makes it unique then other dogs so this is identity
+    }
+}
+---------------------Task 2---------------------
+public interface shape {
+
+    double area();
+
+    double circumfrace();
+
+---------------------Task 3---------------------
+public class shapes {
+    class Rectangle implements shape {
+
+        private double length;
+        private double width;
+
+        public Rectangle(double length, double width) {
+            this.length = length;
+            this.width = width;
+        }
+
+        @Override
+        public double area() {
+
+            return length * width;
+        }
+
+        @Override
+        public double circumfrace() {
+
+            return 2 * (length + width);
+        }
+    }
+    class Circle implements shape {
+
+        private double radius;
+
+        public Circle(double radius) {
+            this.radius = radius;
+
+        }
+
+        @Override
+        public double area() {
+
+            return Math.PI * radius * radius;
+        }
+
+        @Override
+        public double circumfrace() {
+
+            return 2 * Math.PI * radius;
+        }
+    }
+    class Square implements shape {
+
+        private double side;
+
+        public Square(double side) {
+            this.side = side;
+
+        }
+
+        @Override
+        public double area() {
+
+            return side*side;
+        }
+
+        @Override
+        public double circumfrace() {
+
+            return 4 * side;
+        }
+    }
+
+
+    class Triangle implements shape {
+
+        private double hieght;
+        private double Side1;
+        private double Side2;
+
+        private double base;
+
+        public Triangle(double hieght,double base,double Side1,double Side2) {
+            this.hieght = hieght;
+            this.base = base;
+            this.Side1 = Side1;
+            this.Side2 = Side2;
+        }
+
+        @Override
+        public double area() {
+
+            return ((base*hieght)/2);
+        }
+
+        @Override
+        public double circumfrace() {
+
+            return Side1 + Side2 + base;
+        }
+    }
+
+    }
+---------------------Task 4---------------------
+
+
+abstract class Car { //decalred as abstract so this is an abstract class
+    abstract void start(); // this is abstract method that is declared without an implementation
+
+
+}
+class KIA extends Car {
+
+
+    public void start() { //implementation of abstract method
+        System.out.println("KIA is starting");
+    }
+}
+class Main {
+    public static void main(String[] args) {
+        KIA c1 = new KIA();
+        c1.start();
+
+    }
+}
+-------------------------------------------------------
+
+public class SportCar { //Using inheritance .This is Parent class
+        private String kind;
+        private String color;;
+        private String model;
+
+        public SportCar(String kind, String color, String model) {
+            this.kind = kind;
+            this.color = color;
+            this.model = model;
+        }
+
+
+        public void printDetails() {
+            System.out.println("Type of Car: " + kind);
+            System.out.println("Color: " + color);
+            System.out.println("Model: " + model);
+        }
+
+    }
+
+    class Lambo extends SportCar { //Lambo class will inherit properties and behavior from parent class(SportCar)
+
+
+        private int doors=0;
+
+        // Parameterized Constructor
+        public Lambo(String make, String color,String model, int doors) {
+            super(make, color, model);  //calling parent class constructor
+            this.doors = doors;
+        }
+
+        public void carDetails() {
+            printDetails();         //calling method from parent class
+            System.out.println("Number of doors: " + doors);
+        }
+
+
+
+
+
+        public static void main(String[] args) {
+            Lambo Lambo1 = new Lambo("F1", "Red","2016", 1); 
+            Lambo1.carDetails(); 
+        }
+
+    }
+
+
+
+
+---------------------------------------------
+public class SuperCar { //The e idea of encapsulation is to hide the implementation details from users.
+
+    private int Year; //only accessed within same class
+    private String Name;
+    private int Doors;
+
+
+    public int getYear() { //using geters and seters to get and set data for users
+        return Year;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public int getDoors() {
+        return Doors;
+    }
+
+    public void setYear(int newValue) {
+        Year = newValue;
+    }
+
+    public void setName(String newValue) {
+        Name = newValue;
+    }
+
+    public void setDoors(int newValue) {
+        Doors = newValue;
+    }
+
+
+    public static void main(String args[]) {
+        SuperCar car1 = new SuperCar();
+        car1.setName("BMW");
+        car1.setYear(2016);
+        car1.setDoors(2);
+        System.out.println("Super Car Name: " + car1.getName());
+        System.out.println("Super Car Doors: " + car1.getDoors());
+        System.out.println("Super Car Year: " + car1.getYear());
+
+    }
+
+}
+---------------------Task 5--------------------------------------
+
+
+public class User {
+    private Integer id;
+    private String name;
+    private String email;
+    private String mobile;
+
+    User(String name, int id,String email,String mobile)
+    {
+
+        this.name = name;
+        this.id = id;
+        this.email = email;
+        this.mobile = mobile;
+    }
+    public Integer getId() {
+        return id;
+    }
+    public String getName() {
+        return name;
+    }
+    @Override
+    public int hashCode()
+    {
+        final int PRIME = 31;
+        int result = 1;
+        result = PRIME * result + getId();
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null)
+            return false;
+
+        if (o == this)
+            return true;
+
+        if (o.getClass() != getClass())
+            return false;
+
+        User e = (User) o;
+
+        return (this.getId() == e.getId());
+    }
+
+
+public class test {
+    public static void main(String args[]) {
+        User U1 = new User("aa", 1,"kk@gmail.com","iphone");
+        User U2 = new User("aa", 1,"kk@gmail.com","iphone");
+
+
+        if(U1.hashCode() == U2.hashCode())
+        {
+
+            if(U1.equals(U2))
+                System.out.println("Both Users are equal. ");
+            else
+                System.out.println("Both Users are not equal. ");
+
+        }
+        else
+            System.out.println("Both Users are not equal. ");
+}
+}
+
+---------------------Task 6--------------------------------------
+
+
+public class Author {
+
+    private String name;
+    private String email;
+    private char gender;
+
+    public Author(String name, String email, char gender) {
+        this.name = name;
+        this.email = email;
+        this.gender = gender;
+    }
+    public String getName() {
+        return this.name;
+    }
+    public String getEmail() {
+        return this.email;
+    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    public char getGender() {
+        return gender;
+    }
+    public String toString() {
+        String string = this.name + "(" + this.gender + ") at " + this.email;
+        return string;
+    }
+}
+
+---------------------------------------------------------
+
+public class Book {
+    String name;
+    private Author[] authors = new Author[5];
+    private int numAuthors = 0;
+    double price;
+    int qty;
+
+    public Book(String name, Author authors[], double price) {
+        this.name = name;
+        this.price = price;
+    }
+
+    public Book(String name, Author authors[], double price, int qty) {
+        this.name = name;
+        this.price = price;
+        this.qty = qty;
+    }
+
+
+    public String getName() {
+        return this.name;
+    }
+
+    public Author[] getAuthors() {
+        return authors;
+    }
+
+    public double getPrice() {
+        return this.price;
+    }
+
+    public void setPrice(double newPrice) {
+        this.price = newPrice;
+        return;
+    }
+
+    public int getQtyInStock() {
+        return this.qty;
+    }
+
+    public void setQtyInStock(int qty) {
+        this.qty = qty;
+    }
+
+    public String toString() {
+        String ret = "'" + this.name + "' by " + authors.length + " author(s)";
+        return ret;
+    }
+}
+-----------------------------------------------------------------
+public class test {
+    public static void main(String args[]) {
+        Author[] authors = new Author[] {
+                new Author("TAhmed", "gg@gmail.com", 'm'),
+                new Author("Jseph", "lol@gmail.com", 'm')
+        };
+        Book b = new Book("khalid's happiness", authors, 6.9,2);
+        System.out.println(Arrays.toString(b.getAuthors()));
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
