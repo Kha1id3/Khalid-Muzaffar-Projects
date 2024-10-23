@@ -16,6 +16,9 @@ A web application designed to help groups plan and manage trips. Users can creat
 ### 4. **Second-Hand Marketplace Web App**
 A marketplace for buying and selling second-hand goods, with a focus on simplicity and ease of use. Features include user registration, product listings, and secure payment gateways. This project was developed using React for the frontend and Express for the backend, integrating a MongoDB database.
 
+### 5. **IoT Raspberry Pi Elevator Project**
+A project completed as part of an IoT course, where two Raspberry Pi units were used to simulate an elevator system. One Raspberry Pi acted as the elevator, with LED indicators showing the current floor, movement status, and door operations. The second Raspberry Pi represented the floor, with LEDs indicating when the elevator was called to the floor. An MQTT broker was used to facilitate real-time communication between the two systems, displaying the floor number and controlling the elevator’s actions, including door opening and closing.
+
 ## Other Projects and Labs
 
 In addition to the highlighted projects, this repository contains various labs and smaller projects completed throughout my studies:
